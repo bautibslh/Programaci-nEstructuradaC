@@ -1,0 +1,70 @@
+{
+  "version": 1,
+  "author": "Bautista Castagnaro",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-c3-devkitm-1",
+      "id": "esp",
+      "top": -96.3,
+      "left": -138.18,
+      "attrs": { "env": "micropython-20231227-v1.22.0" }
+    },
+    {
+      "type": "wokwi-analog-joystick",
+      "id": "joystick1",
+      "top": 120.6,
+      "left": 54.8,
+      "rotate": 180,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-stepper-motor",
+      "id": "stepper1",
+      "top": -112.67,
+      "left": 151.29,
+      "rotate": 90,
+      "attrs": { "size": "17" }
+    },
+    { "type": "wokwi-a4988", "id": "drv1", "top": -62.4, "left": 14.4, "attrs": {} },
+    { "type": "wokwi-vcc", "id": "vcc1", "top": -210.44, "left": 115.2, "attrs": {} },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -159.25,
+      "left": -240,
+      "attrs": { "value": "1000" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn1",
+      "top": -80.2,
+      "left": -326.4,
+      "attrs": { "color": "green" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:GND.6", "joystick1:GND", "black", [ "h74.38", "v48", "h57.6" ] ],
+    [ "joystick1:HORZ", "esp:4", "green", [ "v-76.8", "h-144", "v-28.8" ] ],
+    [ "stepper1:B+", "drv1:1A", "green", [ "h0" ] ],
+    [ "drv1:1B", "stepper1:B-", "green", [ "h0" ] ],
+    [ "drv1:STEP", "esp:6", "green", [ "h0" ] ],
+    [ "drv1:DIR", "esp:5", "green", [ "h0" ] ],
+    [ "drv1:2B", "stepper1:A-", "green", [ "h0" ] ],
+    [ "drv1:GND.1", "esp:GND.6", "black", [ "v0" ] ],
+    [ "esp:3V3.2", "drv1:VDD", "red", [ "h-38.4", "v153.6", "h259.2", "v-96" ] ],
+    [ "drv1:2A", "stepper1:A+", "green", [ "h0" ] ],
+    [ "joystick1:VCC", "esp:5V.1", "red", [ "v-48", "h-278.4", "v-38.4" ] ],
+    [ "drv1:VMOT", "vcc1:VCC", "red", [ "h57.75", "v-124.72" ] ],
+    [ "drv1:GND.2", "esp:GND.6", "black", [ "h57.75", "v105.68" ] ],
+    [ "esp:8", "drv1:SLEEP", "green", [ "h26.38", "v9.6" ] ],
+    [ "esp:GND.10", "drv1:ENABLE", "black", [ "h26.38", "v19.2" ] ],
+    [ "drv1:RESET", "r1:2", "red", [ "h-28.8", "v-124.8" ] ],
+    [ "r1:1", "esp:3V3.1", "red", [ "v0" ] ],
+    [ "esp:GND.1", "btn1:2.r", "black", [ "v0", "h-96", "v28.8" ] ],
+    [ "btn1:1.r", "r1:2", "green", [ "v-57.6", "h105.8", "v-28.8" ] ]
+  ],
+  "dependencies": {}
+}
